@@ -17,8 +17,6 @@ class Asset extends PluginObject {
 	
 
 	function __construct( $url, $path, $hash = null ) {
-		echo "<pre>" . print_r(get_template_directory(), true) . "</pre>";
-		echo "<pre>" . print_r($path, true) . "</pre>";
 		$this->url  = $url;
 		// $this->path = get_template_directory().$this->switch_ds($path);
 		$this->path = substr($path, 0, 2) != 'C:' ? get_template_directory() : null;
