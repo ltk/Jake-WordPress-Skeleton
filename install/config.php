@@ -4,7 +4,7 @@
 $new_database = array(
     "username" => "username",
     "password" => "password",
-    "name" => "wordpress-database",
+    "name" => "wordpress_database",
     "host" => "localhost",
     "prefix" => "wp_"
 );
