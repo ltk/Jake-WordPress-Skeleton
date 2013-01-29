@@ -54,10 +54,10 @@ add_action('widgets_init', 'jake_widgets_init');
 Registering Widget Areas
 */
 function register_custom_widget_areas() {
-  register_sidebar(array(
-    'name' => __('Footer Social Nav', 'roots'),
-    'id' => 'footer-social-nav'
-  ));
+  // register_sidebar(array(
+  //   'name' => __('Footer Social Nav', 'roots'),
+  //   'id' => 'footer-social-nav'
+  // ));
 }
 add_action('widgets_init', 'register_custom_widget_areas');
 
@@ -89,21 +89,21 @@ class Jake_Social_Widget extends WP_Widget {
       <ul class="social-media-links horizontal-list">
         <?php if ( $this->facebook ) { ?>
         <li>
-          <a href="<?php echo $this->facebook; ?>" target="_blank" title="Visit Yoga del Sol on Facebook">
+          <a href="<?php echo $this->facebook; ?>" target="_blank" title="Visit Us on Facebook">
             <img src="/assets/img/icon-facebook.png" alt="Facebook" />
           </a>
         </li>
         <?php } 
           if ( $this->twitter ) { ?>
         <li>
-          <a href="<?php echo $this->twitter; ?>" target="_blank" title="Visit Yoga del Sol on Twitter">
+          <a href="<?php echo $this->twitter; ?>" target="_blank" title="Visit Us on Twitter">
             <img src="/assets/img/icon-twitter.png" alt="Twitter" />
           </a>
         </li>
         <?php } 
           if ( $this->linkedin ) { ?>
         <li>
-          <a href="<?php echo $this->linkedin; ?>" target="_blank" title="Visit Yoga del Sol on LinkedIn">
+          <a href="<?php echo $this->linkedin; ?>" target="_blank" title="Visit Us on LinkedIn">
             <img src="/assets/img/icon-linkedin.png" alt="LinkedIn" />
           </a>
         </li>
@@ -157,29 +157,29 @@ Post 2 Post Relationship Registration
 */
 
 function register_p2p_custom_connection_types() {
-  p2p_register_connection_type( array(
-      'name' => 'homepage_boxes_to_page',
-      'from' => 'homepage-boxes',
-      'to' => 'page',
-      'sortable' => 'any'
-    )
-  );
+  // p2p_register_connection_type( array(
+  //     'name' => 'homepage_boxes_to_page',
+  //     'from' => 'homepage-boxes',
+  //     'to' => 'page',
+  //     'sortable' => 'any'
+  //   )
+  // );
 
-  p2p_register_connection_type( array(
-      'name' => 'homepage_banners_to_page',
-      'from' => 'homepage-banners',
-      'to' => 'page',
-      'sortable' => 'any'
-    )
-  );
+  // p2p_register_connection_type( array(
+  //     'name' => 'homepage_banners_to_page',
+  //     'from' => 'homepage-banners',
+  //     'to' => 'page',
+  //     'sortable' => 'any'
+  //   )
+  // );
 
-  p2p_register_connection_type( array(
-      'name' => 'faq_to_page',
-      'from' => 'faq',
-      'to' => 'page',
-      'sortable' => 'any'
-    )
-  );
+  // p2p_register_connection_type( array(
+  //     'name' => 'faq_to_page',
+  //     'from' => 'faq',
+  //     'to' => 'page',
+  //     'sortable' => 'any'
+  //   )
+  // );
 }
 
 add_action('init', 'register_p2p_custom_connection_types');
@@ -188,17 +188,17 @@ add_action('init', 'register_p2p_custom_connection_types');
 Post 2 Post Only Show Homepage Boxes Connection Box on Homepage
 */
 function restrict_p2p_box_display( $show, $ctype, $post ) {
-  if ( 'homepage_boxes_to_page' == $ctype->name ) {
-    return ( 'frontpage.php' == $post->page_template );
-  }
+  // if ( 'homepage_boxes_to_page' == $ctype->name ) {
+  //   return ( 'frontpage.php' == $post->page_template );
+  // }
 
-  if ( 'homepage_banners_to_page' == $ctype->name ) {
-    return ( 'frontpage.php' == $post->page_template );
-  }
+  // if ( 'homepage_banners_to_page' == $ctype->name ) {
+  //   return ( 'frontpage.php' == $post->page_template );
+  // }
 
-  if ( 'faq_to_page' == $ctype->name ) {
-    return ( 'page-faqs.php' == $post->page_template );
-  }
+  // if ( 'faq_to_page' == $ctype->name ) {
+  //   return ( 'page-faqs.php' == $post->page_template );
+  // }
 
   return $show;
 }
@@ -210,14 +210,7 @@ BugHerd Toolbar
  */
 function bugherd_toolbar() {
   if( $_ENV["WP_DEBUG"] ) {
-      echo "<script type='text/javascript'>
-    (function (d, t) {
-      var bh = d.createElement(t), s = d.getElementsByTagName(t)[0];
-      bh.type = 'text/javascript';
-      bh.src = '//www.bugherd.com/sidebarv2.js?apikey=vnbdfkswdr3l6usnzicmkg';
-      s.parentNode.insertBefore(bh, s);
-      })(document, 'script');
-    </script>";
+      echo "<script type='text/javascript'>//Bugherd script goes here.</script>";
   }
 }
 
