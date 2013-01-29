@@ -2,29 +2,34 @@
 // Project-Specific
 
 $new_database = array(
-    "username" => "xyz-admin",
-    "password" => "password1234",
-    "name" => "xyz_wordpress",
+    "username" => "username",
+    "password" => "password",
+    "name" => "wordpress-database",
     "host" => "localhost",
     "prefix" => "wp_"
+);
+
+$domains = array(
+    "remote" => "dev.example.com.s148974.gridserver.com",
+    "local" => "dev.example.com"
 );
 
 $wordpress_options = array(
     "title" => "Default Title",
     "allow_search_engines" => 0,
-    "url" => "http://composertest.com"
+    "url" => "http://dev.example.com"
 );
 
 $wordpress_admin_user = array(
-    "email" => "lawson.kurtz@gmail.com",
-    "username" => "admin",
-    "password" => "this-is-a-password"
+    "email" => "info@thejakegroup.com",
+    "username" => "wp-admin",
+    "password" => "wp-password"
 );
 
 // System-Specific
 $mysql = array(
-    "username" => "master",
-    "password" => "master",
+    "username" => "root",
+    "password" => "root",
     "host" => "localhost"
 );
 

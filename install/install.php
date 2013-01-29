@@ -1,25 +1,23 @@
 <?php
 parse_str(implode('&', array_slice($argv, 1)), $_GET);
-$wp_dir = $_GET['path'] . "/wordpress";
+$wp_dir = dirname(__FILE__) . '/..'; //$_GET['path'] . "/wordpress";
 // $config_file_path = "~/Projects/Wordpress-Setup/WP-Composer/config.php";
 
-$config_file_path = "config.php";
+$config_file_path = $wp_dir . "/config.php";
 require( $config_file_path );
 
 write_to_command_line("Firing up the ole PHP script...");
 
-run( $wp_dir, $new_database, $mysql, $wordpress_options, $wordpress_admin_user, $pages, $git_options );
+run( $wp_dir, $new_database, $mysql, $wordpress_options, $wordpress_admin_user, $pages, $git_options, $domains );
 
-function run( $install_path, $new_database, $mysql, $wordpress_options, $wordpress_admin_user, $pages, $git_options ) {
-  modify_wp_config( $install_path, $new_database );
-  create_env_loader( $install_path );
-  create_dev_env( $install_path, $new_database );
+function run( $install_path, $new_database, $mysql, $wordpress_options, $wordpress_admin_user, $pages, $git_options, $domains ) {
+  // modify_wp_config( $install_path, $new_database );
+  // create_env_loader( $install_path );
+  create_dev_env( $install_path, $new_database, $domains );
   setup_mysql_db( $new_database, $mysql );
-
   install_wordpress( $install_path, $wordpress_options, $wordpress_admin_user );
-
   add_pages( $pages );
-  push_to_github( $git_options, $install_path );
+  // push_to_github( $git_options, $install_path );
 }
 
 function write_to_command_line( $message ) {
@@ -140,6 +138,7 @@ function modify_wp_config( $wp_dir, $new_database ) {
 	}
 }
 
+/*
 function create_env_loader( $wp_dir ) {
 	if ( ! file_exists( "$wp_dir/environment/load_environment.php" ) ) {
 		$file_handle = fopen( "$wp_dir/environment/load_environment.php", "wb" );
@@ -165,8 +164,9 @@ if(file_exists(__DIR__ . "/production_env.php")) {
 		write_to_command_line("Environment loader created.");
 	}
 }
+*/
 
-function create_dev_env( $wp_dir, $new_database ) {
+function create_dev_env( $wp_dir, $new_database, $domains ) {
 	if ( ! file_exists( "$wp_dir/environment/development_env.php" ) ) {
 		$file_handle = fopen( "$wp_dir/environment/development_env.php", "wb" );
 		$dev_env = '<?php
@@ -177,6 +177,8 @@ $_ENV["DB_NAME"] = "' . $new_database['name'] . '";
 $_ENV["TABLE_PREFIX"] = "' . $new_database['prefix'] . '";
 $_ENV["DB_HOST"] = "' . $new_database['host'] . '";
 $_ENV["WP_DEBUG"] = true;
+$_ENV["LOCAL_DOMAIN"] = "' .  $domains['local'] . '";
+$_ENV["REMOTE_DOMAIN"] = "' .  $domains['remote'] . '";
 ?>';
 		fwrite($file_handle, $dev_env);
 		fclose($file_handle);
@@ -281,7 +283,7 @@ function add_page( $page, $parent_post_id = null ) {
 
 	return wp_insert_post($page_info);
 }
-
+/*
 function push_to_github( $git_options, $install_path ) {
 	if( isset( $git_options['remote'] ) ) {
 		$output = array();
@@ -294,5 +296,5 @@ function push_to_github( $git_options, $install_path ) {
 		write_to_command_line( "Repository not pushed to GitHub: no repo defined in config file." );
 	}
 }
-
+*/
 ?>
