@@ -1,0 +1,49 @@
+
+h1, h2, h3, h4, h5, h6 {
+	line-height: @baseLineHeight;
+}
+
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a, 
+.h1 a, .h2 a, .h3 a, .h4 a, .h5 a, .h6 a {
+	color: inherit;
+}
+
+h1, .h1 {
+	font-size: 32px;
+	color: @orange;
+	text-transform: uppercase;
+	.sans-font( @bold );
+	margin-top: 35px;
+	line-height: 1em;
+}
+
+h2, .h2 {
+	font-size: 20px;
+	color: @orange;
+	.sans-font( @bold );
+	margin: 30px 0 5px;
+	line-height: 1em;
+}
+
+h3, .h3 {
+	font-size: 16px;
+	color: @orange;
+	.sans-font( @bold );
+	margin: 17px 0 0 0;
+}
+
+h4, .h4 {
+	font-size: 40px;
+	.sans-font( @condensed );
+}
+
+h5, .h5 {
+	font-size: 20px;
+	.sans-font( @bold );
+}
+
+h6, .h6 {
+	font-size: 12px;
+	.sans-font( @bold );
+}
+

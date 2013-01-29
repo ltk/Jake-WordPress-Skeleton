@@ -1,0 +1,1 @@
+<?php echo new J_SubNav_ChildPages( $post ); ?>

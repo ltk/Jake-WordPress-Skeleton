@@ -1,0 +1,133 @@
+/* ==========================================================================
+	Carousel
+	========================================================================= */
+
+.carousel {
+	height: 563px;
+	width: 100%;
+	margin: 0;
+	z-index: 2;
+
+	.box-shadow( 0 12px 6px -6px rgba(0, 0, 0, 0.25) );
+	background: #5b5b5b;
+
+	.carousel-inner {
+		.centered-carousel( 1401px );
+	}
+
+	.item {
+		.transition(.7s ease-in-out opacity);
+		left: 0 !important;
+		min-width: 1401px;
+
+		img {
+			margin: 0 auto;
+			min-height: 563px;
+			min-width: 1401px;
+		}
+	}
+	.next.left, .prev.right {
+		z-index: 1;
+		opacity: 1;
+	}
+	.active.left, .active.right {
+		opacity: 0;
+		z-index: 2;
+	}
+}
+
+
+/* ==========================================================================
+	Featured Boxes
+	========================================================================= */
+
+.feature-box-list {
+	margin: 0 0 25px;
+
+	.feature-box {
+		width: 300px;
+		padding: 10px;
+
+		margin-left: 27px;
+
+		border: 1px solid @grayLight;
+		border-top: 0;
+		.border-radius( 0 0 5px 5px);
+
+		&:first-child {
+			margin-left: 0;
+		}
+
+		.details {
+			display: none;
+		}
+
+		.title {
+			display: block;
+			margin: 0;
+			position: relative;
+			line-height: 1.2em;
+			color: @orange;
+			cursor: pointer;
+
+			&:after {
+				content: "";
+				display: block;
+				width: 22px;
+				height: 13px;
+
+				position: absolute;
+				right: 5px;
+				bottom: 15px;
+
+				background: url(/assets/img/arrow_up_down.png) left top no-repeat;
+			}
+		}
+
+		.desc {
+			font-size: 24px;
+			line-height: 1.6em;
+		}
+
+		.btn-shadowed {
+			.buttonBackground( @orange, @orange );
+			.box-shadow( 2px 2px 6px 0px rgba(0, 0, 0, 0.5) );
+			border: 0;
+		}
+
+
+		&:first-child {
+			background: @orange;
+
+			.title { 
+				color: @white; 
+
+				&:after {
+					background-image: url(/assets/img/arrow_up_down-white.png);
+				}
+
+			}
+			.btn-shadowed {
+				.buttonBackground( lighten(@orange, 10%), lighten(@orange, 10%) );
+			}
+
+		}
+
+		&.open {
+			.title {
+				&:after {
+					background-position: left bottom;
+				}
+			}
+		}
+
+	}
+}
+
+/* ==========================================================================
+	Main
+	========================================================================= */
+
+	#main {
+		min-height: 225px;
+	}

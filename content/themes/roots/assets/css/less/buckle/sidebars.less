@@ -1,0 +1,63 @@
+
+
+.sidebar-nav {
+	margin: 285px 25px 0 0;
+
+	& > li {
+		margin: 20px 0;
+
+		a {
+			display: inline;
+
+			.sans-font( @condensed );
+			color: @gray;
+			font-size: 26px;
+			text-shadow: 1px 1px white;
+
+			&:before {
+				content: "\203A";
+				display: inline-block;
+				margin-right: 8px;
+			}
+
+
+			&:hover,
+			&.active {
+				color: @orange;
+				background: transparent;
+			}
+		}
+		&.active a {
+			color: @orange;
+			background: transparent;
+		}
+
+	}
+
+	.subnav {
+		display: none;
+
+		& > li {
+			a {
+
+
+				&:hover {
+
+				}
+
+				&:before {
+
+				}
+			}
+
+			&.active {
+				a {
+
+				}
+			}
+		}
+	}
+
+
+
+}
