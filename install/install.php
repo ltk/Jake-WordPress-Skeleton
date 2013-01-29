@@ -1,8 +1,8 @@
 <?php
 
-$wp_dir = dirname(__FILE__) . '/install/..';
+$wp_dir = dirname(__FILE__) . '/..';
 
-$config_file_path = $wp_dir . "/config.php";
+$config_file_path = $wp_dir . "/install/config.php";
 require( $config_file_path );
 
 write_to_command_line("Firing up the ole PHP script...");
@@ -204,7 +204,8 @@ function after_wordpress_install_buffer( $buffer ) {
 		wp_delete_post( 2, true );
 
 		// Redirect to wp-admin
-        $admin_url = admin_url(); 
+        // 
+        $admin_url = wp_login_url(); 
         exec("open $admin_url;");
 	} else {
 		$errors = array();
