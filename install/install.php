@@ -1,7 +1,6 @@
 <?php
-parse_str(implode('&', array_slice($argv, 1)), $_GET);
-$wp_dir = dirname(__FILE__) . '/..'; //$_GET['path'] . "/wordpress";
-// $config_file_path = "~/Projects/Wordpress-Setup/WP-Composer/config.php";
+
+$wp_dir = dirname(__FILE__) . '/install/..';
 
 $config_file_path = $wp_dir . "/config.php";
 require( $config_file_path );
@@ -204,8 +203,9 @@ function after_wordpress_install_buffer( $buffer ) {
 		wp_delete_post( 1, true );
 		wp_delete_post( 2, true );
 
-		// TODO: make the site url customizable
-		exec('open http://composertest.com/wp-admin/');
+		// Redirect to wp-admin
+        $admin_url = admin_url(); 
+        exec("open $admin_url;");
 	} else {
 		$errors = array();
 		preg_match( '/<p class="message"><strong>ERROR<\/strong>:(.*)<\/p>/', $buffer, $errors );

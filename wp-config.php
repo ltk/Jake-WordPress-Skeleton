@@ -21,6 +21,10 @@ define( 'SAVEQUERIES', $_ENV["WP_DEBUG"] );
 define( 'WP_CONTENT_DIR', dirname( __FILE__ ) . '/content' );
 define( 'WP_CONTENT_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/content' );
 
+// Alternatively these could be defined in the DB
+define('WP_SITEURL', 'http://' . $_ENV['LOCAL_DOMAIN'] . '/wp');
+define('WP_HOME', 'http://' . $_ENV['LOCAL_DOMAIN']);
+
 // ================================================
 // You almost certainly do not want to change these
 // ================================================
