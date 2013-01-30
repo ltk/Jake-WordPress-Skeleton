@@ -63,3 +63,4 @@ environment/staging_env.php
 environment/development_env.php
 
 /content/upgrade/
+/install/config.php
