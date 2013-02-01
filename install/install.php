@@ -216,7 +216,7 @@ function after_wordpress_install_buffer( $buffer ) {
 }
 
 function install_wordpress( $install_path, $wordpress_options, $wordpress_admin_user ) {
-	$install_file_path = $install_path . "/wp-admin/install.php";
+	$install_file_path = $install_path . "/wp/wp-admin/install.php";
 	$_GET['step'] = 2; // Spoofing form submission
 
 	$_POST = array(
