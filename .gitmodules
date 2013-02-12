@@ -3,7 +3,7 @@
 	url = git://github.com/WordPress/WordPress.git
 [submodule "content/themes/roots/assets/css/less/buckle"]
 	path = content/themes/roots/assets/css/less/buckle
-	url = git@github.com:TyBruffy/buckle.git
+	url = git@github.com:tybruffy/buckle.git
 [submodule "content/plugins/wp-less-compiler"]
 	path = content/plugins/wp-less-compiler
-	url = git@github.com:TyBruffy/wp-less-compiler.git
+	url = git@github.com:tybruffy/wp-less-compiler.git
