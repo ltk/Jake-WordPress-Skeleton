@@ -5,9 +5,7 @@ $wp_dir = dirname(__FILE__) . '/..';
 $config_file_path = $wp_dir . "/install/config.php";
 
 
-move_those_files_around( $wp_dir ) {
-
-}
+move_those_files_around( $wp_dir );
 
 require( $config_file_path );
 
@@ -16,27 +14,35 @@ write_to_command_line("Firing up the ole PHP script...");
 run( $wp_dir, $new_database, $mysql, $wordpress_options, $wordpress_admin_user, $pages, $git_options, $domains );
 
 function move_those_files_around( $root_dir ) {
-    move_directory_contents("$root_dir/wp", "$root_dir/");
-    move_directory_contents("$root_dir/content", "$root_dir/wp-content/");
+    move_directory_contents("$root_dir/wp", "$root_dir");
+    move_directory_contents("$root_dir/content", "$root_dir/wp-content");
 }
 
-function move_directory_contents( $source, $target ) {
-    // Get array of all source files
-    $files = scandir($source);
-    // Identify directories
-    $source = "$source/";
-    $destination = $target;
-    // Cycle through all source files
-    foreach ($files as $file) {
-      if (in_array($file, array(".",".."))) continue;
-      // If we copied this successfully, mark it for deletion
-      if (copy($source.$file, $destination.$file)) {
-        $delete[] = $source.$file;
+function move_directory_contents( $source_dir, $target ) {
+    $srcDir = $source_dir;
+    $destDir = $target;
+
+    if (file_exists($destDir)) {
+      if (is_dir($destDir)) {
+        if (is_writable($destDir)) {
+          if ($handle = opendir($srcDir)) {
+            while (false !== ($file = readdir($handle))) {
+              if (is_file($srcDir . '/' . $file)) {
+                rename($srcDir . '/' . $file, $destDir . '/' . $file);
+              }
+            }
+            closedir($handle);
+          } else {
+            echo "$srcDir could not be opened.\n";
+          }
+        } else {
+          echo "$destDir is not writable!\n";
+        }
+      } else {
+        echo "$destDir is not a directory!\n";
       }
-    }
-    // Delete all successfully-copied files
-    foreach ($delete as $file) {
-      unlink($file);
+    } else {
+      echo "$destDir does not exist\n";
     }
 }
 
