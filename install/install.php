@@ -3,11 +3,42 @@
 $wp_dir = dirname(__FILE__) . '/..';
 
 $config_file_path = $wp_dir . "/install/config.php";
+
+
+move_those_files_around( $wp_dir ) {
+
+}
+
 require( $config_file_path );
 
 write_to_command_line("Firing up the ole PHP script...");
 
 run( $wp_dir, $new_database, $mysql, $wordpress_options, $wordpress_admin_user, $pages, $git_options, $domains );
+
+function move_those_files_around( $root_dir ) {
+    move_directory_contents("$root_dir/wp", "$root_dir/");
+    move_directory_contents("$root_dir/content", "$root_dir/wp-content/");
+}
+
+function move_directory_contents( $source, $target ) {
+    // Get array of all source files
+    $files = scandir($source);
+    // Identify directories
+    $source = "$source/";
+    $destination = $target;
+    // Cycle through all source files
+    foreach ($files as $file) {
+      if (in_array($file, array(".",".."))) continue;
+      // If we copied this successfully, mark it for deletion
+      if (copy($source.$file, $destination.$file)) {
+        $delete[] = $source.$file;
+      }
+    }
+    // Delete all successfully-copied files
+    foreach ($delete as $file) {
+      unlink($file);
+    }
+}
 
 function run( $install_path, $new_database, $mysql, $wordpress_options, $wordpress_admin_user, $pages, $git_options, $domains ) {
   // modify_wp_config( $install_path, $new_database );
