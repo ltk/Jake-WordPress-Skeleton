@@ -41,8 +41,7 @@ function move_file( $from, $to ) {
         } else {
             $move_status = copy($from.DIRECTORY_SEPARATOR.$file, $to.DIRECTORY_SEPARATOR.$file);
         }
-        if(!$move_status) array_push($errors, $from.DIRECTORY_SEPARATOR.$file);
-
+        if(!$move_status){array_push($errors, $from.DIRECTORY_SEPARATOR.$file);
     }
     return empty($errors) ? true : false;
 }
