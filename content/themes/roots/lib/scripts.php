@@ -39,9 +39,9 @@ function roots_scripts() {
 	}
 
 	wp_register_script('fonts-js', 'http://fast.fonts.com/jsapi/2cafb5ec-b30c-4fdb-b00a-c86c16c333fd.js', false, null, false);
-	wp_register_script('roots_plugins', get_template_directory_uri() . '/assets/js/plugins.js', false, null, false);
-	wp_register_script('roots_main', get_template_directory_uri() . '/assets/js/main.js', false, null, false);
-	wp_register_script('carousel-ie-fallback', get_template_directory_uri() . '/assets/js/carousel-ie-fallback.js', false, null, false);
+	wp_register_script('roots_plugins', home_url() . '/assets/js/plugins.js', false, null, false);
+	wp_register_script('roots_main', home_url() . '/assets/js/main.js', false, null, false);
+	wp_register_script('carousel-ie-fallback', home_url() . '/assets/js/carousel-ie-fallback.js', false, null, false);
 
 	wp_enqueue_script('roots_plugins');
 	wp_enqueue_script('fonts-js');
