@@ -1,6 +1,6 @@
 <?php
 
-$wp_dir = dirname(__FILE__) . '/..';
+$wp_dir = dirname(__FILE__) .DIRECTORY_SEPARATOR.'..';
 
 $config_file_path = $wp_dir . "/install/config.php";
 
@@ -13,34 +13,37 @@ write_to_command_line("Firing up the ole PHP script...");
 
 run( $wp_dir, $new_database, $mysql, $wordpress_options, $wordpress_admin_user, $pages, $git_options, $domains );
 
-function move_those_files_around( $root_dir ) {
-    rcopy("$root_dir/wp", "$root_dir");
-    rcopy("$root_dir/content", "$root_dir/wp-content");
+
+function move_those_files_around( $dir ) {
+    move_file( $dir.DIRECTORY_SEPARATOR.'wp', $dir );
+    move_file( $dir.DIRECTORY_SEPARATOR.'content', $dir.DIRECTORY_SEPARATOR.'wp-content' );
 }
 
-// Function to remove folders and files 
-function rrmdir($dir) {
-    if (is_dir($dir)) {
-        $files = scandir($dir);
-        foreach ($files as $file)
-            if ($file != "." && $file != "..") rrmdir("$dir/$file");
-        rmdir($dir);
+function move_file( $from, $to ) {
+    $errors = array();
+    $ignore = array(
+        '.DS_Store',
+        '.',
+        '..'
+        );
+    $files = scandir($from);
+
+    // If there are no files, we're already done!
+    if(empty($files)) return true;
+
+    foreach($files as $file){
+        if(in_array($file, $ignore)) continue;
+
+        if(is_dir($from.DIRECTORY_SEPARATOR.$file)) {
+            mkdir($to.DIRECTORY_SEPARATOR.$file);
+            $move_status = move_file($from.DIRECTORY_SEPARATOR.$file, $to.DIRECTORY_SEPARATOR.$file);
+        } else {
+            $move_status = copy($from.DIRECTORY_SEPARATOR.$file, $to.DIRECTORY_SEPARATOR.$file);
+        }
+        if(!$move_status) array_push($errors, $from.DIRECTORY_SEPARATOR.$file);
+
     }
-    else if (file_exists($dir)) unlink($dir);
-}
-
-// Function to Copy folders and files       
-function rcopy($src, $dst) {
-    if (file_exists ( $dst ))
-        rrmdir ( $dst );
-    if (is_dir ( $src )) {
-        mkdir ( $dst );
-        $files = scandir ( $src );
-        foreach ( $files as $file )
-            if ($file != "." && $file != "..")
-                rcopy ( "$src/$file", "$dst/$file" );
-    } else if (file_exists ( $src ))
-        copy ( $src, $dst );
+    return empty($errors) ? true : false;
 }
 
 function run( $install_path, $new_database, $mysql, $wordpress_options, $wordpress_admin_user, $pages, $git_options, $domains ) {
