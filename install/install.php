@@ -205,7 +205,7 @@ function after_wordpress_install_buffer( $buffer ) {
 
 		// Redirect to wp-admin
         // 
-        $admin_url = wp_login_url(); 
+        $admin_url = home_url() . '/wp/wp-admin/';
         exec("open $admin_url;");
 	} else {
 		$errors = array();
