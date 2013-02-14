@@ -161,6 +161,7 @@ function replace_keys_and_salts( $wpconfig ) {
 	$wpconfig = str_replace($search, $keys, $wpconfig);
 
 	return $wpconfig;
+
 }
 
 function replace_default_db_info( $wpconfig, $new_database ) {
