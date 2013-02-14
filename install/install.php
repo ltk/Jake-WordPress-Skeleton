@@ -6,6 +6,7 @@ $config_file_path = dirname(__FILE__) .DIRECTORY_SEPARATOR.'config.php';
 
 
 move_those_files_around( $wp_dir );
+change_htaccess_permissions( $wp_dir );
 
 require( $config_file_path );
 
@@ -50,6 +51,10 @@ function move_file( $from, $to ) {
 
     }
     return empty($errors) ? true : false;
+}
+
+function change_htaccess_permissions( $dir ){
+    chmod($dir.DIRECTORY_SEPARATOR.'.htaccess', 0777);
 }
 
 function run( $install_path, $new_database, $mysql, $wordpress_options, $wordpress_admin_user, $pages, $git_options, $domains ) {
