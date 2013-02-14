@@ -2,7 +2,7 @@
 
 $wp_dir = dirname(__FILE__) .DIRECTORY_SEPARATOR.'..';
 
-$config_file_path = $wp_dir . "/install/config.php";
+$config_file_path = dirname(__FILE__) .DIRECTORY_SEPARATOR.'config.php';
 
 
 move_those_files_around( $wp_dir );
