@@ -146,7 +146,7 @@ function curl_get_file_contents($URL) {
 
 function replace_keys_and_salts( $wpconfig ) {
 	
-	$keys = curl_get_file_contents("https://api.wordpress.org/secret-key/1.1/salt/");
+	$keys = file_get_contents("https://api.wordpress.org/secret-key/1.1/salt/");
 	$start = strpos($wpconfig, "define('AUTH_KEY'");
 	$search = substr($wpconfig, $start, 479);
 	$wpconfig = str_replace($search, $keys, $wpconfig);
