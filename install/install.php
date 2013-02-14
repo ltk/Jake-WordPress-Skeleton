@@ -18,8 +18,6 @@ run( $wp_dir, $new_database, $mysql, $wordpress_options, $wordpress_admin_user, 
 function move_those_files_around( $dir ) {
     move_file( $dir.DIRECTORY_SEPARATOR.'wp', $dir );
     move_file( $dir.DIRECTORY_SEPARATOR.'content', $dir.DIRECTORY_SEPARATOR.'wp-content' );
-
-    rmdir(dirname)
 }
 
 function move_file( $from, $to ) {
@@ -52,7 +50,7 @@ function move_file( $from, $to ) {
         if(!$move_status) array_push($errors, $from_path);
 
     }
-    rmdir($from);
+    if(is_dir($from)) rmdir($from);
     return empty($errors) ? true : false;
 }
 
@@ -256,7 +254,7 @@ function after_wordpress_install_buffer( $buffer ) {
 
 		// Redirect to wp-admin
         // 
-        $admin_url = home_url() . '/wp/wp-admin/';
+        $admin_url = home_url() . '/wp-admin/';
         exec("open $admin_url;");
 	} else {
 		$errors = array();
