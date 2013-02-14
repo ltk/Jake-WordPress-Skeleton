@@ -41,16 +41,19 @@ function move_file( $from, $to ) {
         if(is_dir($from_path)) {
             mkdir($to_path);
             $move_status = move_file($from_path, $to_path);
-            rmdir($from_path);
         } else {
-            $move_status = copy($from_path, $to_path);
-            unlink($from_path);
+            $move_status = copy($from_path, $to_path);  
         }
-
         if(!$move_status) array_push($errors, $from_path);
-
     }
-    if(is_dir($from)) rmdir($from);
+
+    if($move_status){
+       if(is_dir($from)){
+           rmdir($from);
+       } else {
+           unlink($from);
+       } 
+    }  
     return empty($errors) ? true : false;
 }
 
