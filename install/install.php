@@ -24,8 +24,7 @@ function move_file( $from, $to ) {
     $ignore = array(
         '.DS_Store',
         '.',
-        '..',
-        'wp-config.php'
+        '..'
         );
     $files = scandir($from);
 
@@ -35,13 +34,20 @@ function move_file( $from, $to ) {
     foreach($files as $file){
         if(in_array($file, $ignore)) continue;
 
-        if(is_dir($from.DIRECTORY_SEPARATOR.$file)) {
-            mkdir($to.DIRECTORY_SEPARATOR.$file);
-            $move_status = move_file($from.DIRECTORY_SEPARATOR.$file, $to.DIRECTORY_SEPARATOR.$file);
+        $from_path = $from.DIRECTORY_SEPARATOR.$file;
+        $to_path = $to.DIRECTORY_SEPARATOR.$file;
+
+        if(is_dir($from_path)) {
+            mkdir($to_path);
+            $move_status = move_file($from_path, $to_path);
+            rmdir($from_path);
         } else {
-            $move_status = copy($from.DIRECTORY_SEPARATOR.$file, $to.DIRECTORY_SEPARATOR.$file);
+            $move_status = copy($from_path, $to_path);
+            unlink($from_path);
         }
-        if(!$move_status){array_push($errors, $from.DIRECTORY_SEPARATOR.$file);
+
+        if(!$move_status) array_push($errors, $from_path);
+
     }
     return empty($errors) ? true : false;
 }
