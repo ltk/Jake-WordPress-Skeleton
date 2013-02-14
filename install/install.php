@@ -1,13 +1,64 @@
 <?php
 
-$wp_dir = dirname(__FILE__) . '/..';
+$wp_dir = dirname(__FILE__) .DIRECTORY_SEPARATOR.'..';
 
-$config_file_path = $wp_dir . "/install/config.php";
+$config_file_path = dirname(__FILE__) .DIRECTORY_SEPARATOR.'config.php';
+
+
+move_those_files_around( $wp_dir );
+change_htaccess_permissions( $wp_dir );
+
 require( $config_file_path );
 
 write_to_command_line("Firing up the ole PHP script...");
 
 run( $wp_dir, $new_database, $mysql, $wordpress_options, $wordpress_admin_user, $pages, $git_options, $domains );
+
+
+function move_those_files_around( $dir ) {
+    move_file( $dir.DIRECTORY_SEPARATOR.'wp', $dir );
+    move_file( $dir.DIRECTORY_SEPARATOR.'content', $dir.DIRECTORY_SEPARATOR.'wp-content' );
+
+    rmdir(dirname)
+}
+
+function move_file( $from, $to ) {
+    $errors = array();
+    $ignore = array(
+        '.DS_Store',
+        '.',
+        '..'
+        );
+    $files = scandir($from);
+
+    // If there are no files, we're already done!
+    if(empty($files)) return true;
+
+    foreach($files as $file){
+        if(in_array($file, $ignore)) continue;
+
+        $from_path = $from.DIRECTORY_SEPARATOR.$file;
+        $to_path = $to.DIRECTORY_SEPARATOR.$file;
+
+        if(is_dir($from_path)) {
+            mkdir($to_path);
+            $move_status = move_file($from_path, $to_path);
+            rmdir($from_path);
+        } else {
+            $move_status = copy($from_path, $to_path);
+            unlink($from_path);
+        }
+
+        if(!$move_status) array_push($errors, $from_path);
+
+    }
+    rmdir($from);
+    return empty($errors) ? true : false;
+}
+
+function change_htaccess_permissions( $dir ){
+    chmod($dir.DIRECTORY_SEPARATOR.'.htaccess', 0777);
+}
 
 function run( $install_path, $new_database, $mysql, $wordpress_options, $wordpress_admin_user, $pages, $git_options, $domains ) {
   // modify_wp_config( $install_path, $new_database );
@@ -103,7 +154,7 @@ function curl_get_file_contents($URL) {
 
 function replace_keys_and_salts( $wpconfig ) {
 	
-	$keys = curl_get_file_contents("https://api.wordpress.org/secret-key/1.1/salt/");
+	$keys = file_get_contents("https://api.wordpress.org/secret-key/1.1/salt/");
 	$start = strpos($wpconfig, "define('AUTH_KEY'");
 	$search = substr($wpconfig, $start, 479);
 	$wpconfig = str_replace($search, $keys, $wpconfig);
@@ -216,7 +267,7 @@ function after_wordpress_install_buffer( $buffer ) {
 }
 
 function install_wordpress( $install_path, $wordpress_options, $wordpress_admin_user ) {
-	$install_file_path = $install_path . "/wp/wp-admin/install.php";
+	$install_file_path = $install_path . "/wp-admin/install.php";
 	$_GET['step'] = 2; // Spoofing form submission
 
 	$_POST = array(
